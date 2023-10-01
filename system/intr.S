@@ -586,6 +586,30 @@ _Xint46:
     je  _46usercpu
 	jmp _recover46
 
+/*  arg2  arg1 <eflags cs eip> cs ds oldebp*/
+_46chprio:
+	pushw 24(%ebp) /* 2nd arg*/
+	pushl 20(%ebp) 
+	call chprio
+	addl $6,%esp   /* remove arguments */	
+	jmp	_recover46
+
+_46getmem:
+	pushl 20(%ebp) /* 1st argument */
+	call getmem
+	addl $4,%esp   /* remove arguments */	
+	jmp	_recover46
+
+_46getpid:
+	call getpid
+	jmp	_recover46
+
+_46usercpu:
+	pushl 20(%ebp) /* 1st argument */
+	call usercpu
+	addl $4,%esp   /* remove arguments */	
+	jmp	_recover46
+
 _recover46:
 	popl %ecx            /* pop usersp to ecx */
 	movl %ecx,%esp       /* restore usersp to esp */
