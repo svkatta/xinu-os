@@ -134,6 +134,10 @@ extern	void	halt(void);
 /* in file myhello.c */
 extern void myhello(void);
 
+/* in file usercpu.c */
+extern syscall usercpu(pid32);
+
+
 /* in file icmp.c */
 extern	void	icmp_init(void);
 extern	void	icmp_in(struct netpacket *);
