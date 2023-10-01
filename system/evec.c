@@ -94,9 +94,17 @@ int32	set_evec(uint32 xnum, uint32 handler)
 
 	pidt = &idt[xnum];
 	pidt->igd_loffset = handler;
-	pidt->igd_segsel = 0x8;		/* Kernel code segment */
+	if(xnum == 46){
+		pidt->igd_segsel = 0x18;	/* 0x18 user code segment */	
+	}else{
+		pidt->igd_segsel = 0x08;	/* Kernel code segment */
+	}
 	pidt->igd_mbz = 0;
-	pidt->igd_type = IGDT_TRAPG;
+	if(xnum == 46){
+		pidt->igd_type = 14;	/* 0x18 user code segment */	
+	}else{
+		pidt->igd_type = IGDT_TRAPG;	/* Kernel code segment */
+	}
 	pidt->igd_dpl = 0;
 	pidt->igd_present = 1;
 	pidt->igd_hoffset = handler >> 16;

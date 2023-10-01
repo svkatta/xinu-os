@@ -559,13 +559,43 @@ _Xint45:
 
 	.globl  _Xint46			/* available for ext. interrupt	*/
 _Xint46:
-	pushl	%ebp
-	movl	%esp,%ebp
-	pushal
-	movl	%esp, %eax
-	pushl	%eax
-	pushl	$46
-	jmp	Xtrap
+	pushw %ds
+	pushw %ss
+
+	pushl	%ebp         /* Push ebp onto stack		(need this for better access to arguments)*/
+	movl	%esp,%ebp    /* Record current SP in ebp	*/
+	pushl $0             /* for output eax */
+	pushal 
+	movl $0x20 , %edx
+	movw  %dx, %ds
+	movw  %dx, %ss
+
+	/* stack switch */
+	movl currpid,%ebx
+	movl kstack(,%ebx,4),%ebx       /* mov kernelstack pointer to ebx*/
+	movl %esp,(%ebx)     /* write user sp to kernelstack */
+	movl %ebx,%esp       /* write kernel sp to esp */
+
+	cmp $20, %eax
+    je  _46getpid
+	cmp $21, %eax
+    je  _46getmem
+	cmp $22, %eax
+    je  _46chprio
+	cmp $23, %eax
+    je  _46usercpu
+	jmp _recover46
+
+_recover46:
+	popl %ecx            /* pop usersp to ecx */
+	movl %ecx,%esp       /* restore usersp to esp */
+	movl %eax, -4(%ebp) 
+	popal 
+	popl %eax
+	popl %ebp
+	popw %ss
+	popw %ds
+	iret 
 
 /*------------------------------------------------------------------------
  * _Xint? - array of exception/interrupt entry points that are
