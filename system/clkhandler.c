@@ -25,6 +25,9 @@ void	clkhandler()
 
 	vfineclkcounter +=1 ;
 
+	/* increment process usercputime */
+	proctab[currpid].prusercpu +=  1;
+
 	/* Handle sleeping processes if any exist */
 
 	if(!isempty(sleepq)) {
