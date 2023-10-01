@@ -137,6 +137,8 @@ extern void myhello(void);
 /* in file usercpu.c */
 extern syscall usercpu(pid32);
 
+/* in file cpuutil.c */
+extern unsigned short cpuutil(void);
 
 /* in file icmp.c */
 extern	void	icmp_init(void);
