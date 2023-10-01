@@ -81,6 +81,9 @@ void	nulluser()
         /* Limit network relevant calls for CS503 courses   */
 	///* Initialize the network stack and start processes */
 
+	/* prints intro message */
+	myhello();
+	
 	//net_init();
 
 	/* Create a process to finish startup and start main */

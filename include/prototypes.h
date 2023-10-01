@@ -131,6 +131,9 @@ extern	status	getutime(uint32 *);
 /* in file halt.S */
 extern	void	halt(void);
 
+/* in file myhello.c */
+extern void myhello(void);
+
 /* in file icmp.c */
 extern	void	icmp_init(void);
 extern	void	icmp_in(struct netpacket *);
