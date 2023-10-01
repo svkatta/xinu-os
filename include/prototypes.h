@@ -110,6 +110,9 @@ extern	pid32	getitem(pid32);
 /* in file getmem.c */
 extern	char	*getmem(uint32);
 
+/* in file getmemx.c */
+extern	char	*getmemx(uint32);
+
 /* in file getpid.c */
 extern	pid32	getpid(void);
 
@@ -136,6 +139,9 @@ extern void myhello(void);
 
 /* in file usercpu.c */
 extern syscall usercpu(pid32);
+
+/* in file usercpux.c */
+extern syscall	usercpux(pid32);
 
 /* in file cpuutil.c */
 extern unsigned short cpuutil(void);
