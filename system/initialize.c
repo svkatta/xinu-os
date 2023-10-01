@@ -26,6 +26,8 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
+uint32* kstack[NPROC];  /* kernel process stack */
+
 /* Control sequence to reset the console colors and cusor positiion	*/
 
 #define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
@@ -83,7 +85,7 @@ void	nulluser()
 
 	/* prints intro message */
 	myhello();
-	
+
 	//net_init();
 
 	/* Create a process to finish startup and start main */

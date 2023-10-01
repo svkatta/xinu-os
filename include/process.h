@@ -58,6 +58,9 @@ struct procent {		/* Entry in the process table		*/
 /* Marker for the top of a process stack (used to help detect overflow)	*/
 #define	STACKMAGIC	0x0A0AAAA9
 
+/* kernel stack array */
+extern uint32* kstack[NPROC];
+
 extern	struct	procent proctab[];
 extern	int32	prcount;	/* Currently active processes		*/
 extern	pid32	currpid;	/* Currently executing process		*/

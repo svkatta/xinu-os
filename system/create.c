@@ -63,6 +63,9 @@ pid32	create(
 	*saddr = STACKMAGIC;
 	savsp = (uint32)saddr;
 
+	/* Initialize kernel stack */
+	kstack[pid]= getstk(4096); /* 4kb kernel stack size */
+
 	/* Push arguments */
 	a = (uint32 *)(&nargs + 1);	/* Start of args		*/
 	a += nargs -1;			/* Last argument		*/
